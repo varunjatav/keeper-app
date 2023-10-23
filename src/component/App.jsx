@@ -1,10 +1,25 @@
 import Notes from "./Note";
-import { notes } from "../notes";
+import CreateArea from "./CreateArea";
+import { useState } from "react";
+
 function AppComp() {
+  const [note, setNote] = useState([]);
+
+  const addNote = (newNote) => {
+    console.log(newNote);
+    setNote((preNotes) => {
+      return [...preNotes, newNote];
+    });
+  };
   return (
     <div>
-      {notes.map((note) => {
-        return <Notes title={note.title} content={note.content} />;
+      <CreateArea onAdd={addNote} />
+      {note.map((eachNote) => {
+       return <Notes
+          key={1}
+          title={eachNote.title}
+          content={eachNote.content}
+        />;
       })}
     </div>
   );
