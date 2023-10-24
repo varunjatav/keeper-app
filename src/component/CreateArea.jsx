@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+import Zoom from '@mui/material/Zoom';
 
 const CreateArea = ({onAdd}) => {
+  const [shown , setShown ] = useState(false);
     const [note , setNote] = useState({
         title: "",
         content: "",
@@ -22,10 +26,18 @@ const CreateArea = ({onAdd}) => {
     }
   return (
     <div>
-      <form>
-      <input type="text"  onChange={handleChange} value={note.title} placeholder="Title" name="title" />
-      <textarea type="text" onChange={handleChange}  value={note.content} placeholder="Take a note... " name="content"  rows="3" />
-      <button onClick={SubmitNote}>Add</button>
+      <form className="create-note">
+        {
+          shown && (<input type="text"  onChange={handleChange} value={note.title} placeholder="Title" name="title"  />)
+        }
+      
+     
+      <textarea type="text" onChange={handleChange}  value={note.content} placeholder="Take a note... " name="content"  rows={shown? '3' : '1'} onClick={() => setShown(true)} />
+      <Zoom in={shown}>
+       <Fab onClick={SubmitNote}>
+        <AddIcon/>
+      </Fab>
+      </Zoom>
       </form>
     </div>
   )

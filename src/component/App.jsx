@@ -11,14 +11,26 @@ function AppComp() {
       return [...preNotes, newNote];
     });
   };
+
+  const deleteNote = (id) => {
+    console.log("Delete func Called");
+      setNote((preNotes) => {
+     return preNotes.filter((noteItem , index) => {
+        return index !== id;
+      })
+      
+    });
+  }
   return (
     <div>
       <CreateArea onAdd={addNote} />
-      {note.map((eachNote) => {
+      {note.map((eachNote , index) => {
        return <Notes
-          key={1}
+          key={index}
+          id={index}
           title={eachNote.title}
           content={eachNote.content}
+          onDelete={deleteNote}
         />;
       })}
     </div>
